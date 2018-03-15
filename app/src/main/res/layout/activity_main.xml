@@ -10,6 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+    <com.han.widget.simplebanner.BannerView
+        android:id="@+id/bannerview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"></com.han.widget.simplebanner.BannerView>
 
     <com.han.widget.simplebanner.SimpleBanner
         android:id="@+id/simple"

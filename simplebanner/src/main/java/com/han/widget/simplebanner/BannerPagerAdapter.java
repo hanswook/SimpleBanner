@@ -16,11 +16,11 @@ import java.util.List;
 
 public class BannerPagerAdapter extends PagerAdapter {
 
-    public BannerPagerAdapter(List<ImageView> datas) {
+    public BannerPagerAdapter(List<BannerView> datas) {
         this.datas = datas;
     }
 
-    private List<ImageView> datas;
+    private List<BannerView> datas;
 
     private OnItemClickListener listener;
 
@@ -38,7 +38,7 @@ public class BannerPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         // 把position对应位置的ImageView添加到ViewPager中
-        ImageView iv = datas.get(position % datas.size());
+        BannerView iv = datas.get(position % datas.size());
         final int nowPosition = position % datas.size();
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,6 @@ public class BannerPagerAdapter extends PagerAdapter {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         Log.e(" adapter", "listener:" + (listener == null));
         Log.e(" adapter", "onItemClickListener:" + (onItemClickListener == null));
-
         this.listener = onItemClickListener;
         Log.e(" adapter", "listener:" + (listener == null));
     }

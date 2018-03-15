@@ -1,6 +1,7 @@
 package com.han.widget.simplebanner;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -8,9 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.han.widget.R;
 
@@ -26,17 +25,13 @@ import java.util.List;
 public class SimpleBanner extends FrameLayout {
 
 
-    private List<ImageView> imageList;
-    private List<String> imageUrlList;
-
+    private List<BannerView> bannerList;
+    private List<String> imageUrlList, bannerTitleList;
     private ViewPager viewPager;
-
-    private TextView textView;
-
     private LinearLayout linearLayout;
     private ImageLoader imageLoader;
-
     private BannerPagerAdapter bannerPagerAdapter;
+    private int lastPosition = 0;
 
 
     public SimpleBanner(@NonNull Context context) {
@@ -53,8 +48,17 @@ public class SimpleBanner extends FrameLayout {
     }
 
 
-    public void initBanner(List<String> imageUrlList) {
+    public void initBanner(List<String> imageUrlList, List<String> bannerTitleList) {
         this.imageUrlList = imageUrlList;
+        this.bannerTitleList = bannerTitleList;
+        if (imageUrlList == null || bannerTitleList == null || imageUrlList.size() == 0 || bannerTitleList
+                .size() == 0) {
+            throw new IllegalArgumentException("传入图片地址或广告内容不能为空");
+        }
+
+        if (imageUrlList.size() != bannerTitleList.size()) {
+            throw new IllegalArgumentException("传入图片地址或广告内容数量必须一致");
+        }
         initData();
     }
 
@@ -63,27 +67,19 @@ public class SimpleBanner extends FrameLayout {
         if (getChildCount() <= 0) {
             View.inflate(getContext(), R.layout.simple_banner_layout, this);
             viewPager = findViewById(R.id.sb_viewpager);
-            textView = findViewById(R.id.sb_title);
             linearLayout = findViewById(R.id.sb_point_layout);
         }
-        imageList = new ArrayList<>();
-        bannerPagerAdapter = new BannerPagerAdapter(imageList);
+        bannerList = new ArrayList<>();
+        bannerPagerAdapter = new BannerPagerAdapter(bannerList);
     }
 
-    private int lastPosition = 0;
 
     private void initData() {
-
-        for (int i = 0; i < 15; i++) {
-
-            ImageView imageView = new ImageView(getContext());
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        for (int i = 0; i < imageUrlList.size(); i++) {
+            BannerView bannerView = new BannerView(getContext());
             if (imageLoader != null) {
-                imageLoader.loadImage(imageUrlList.get(i), imageView);
+                imageLoader.loadImage(imageUrlList.get(i), bannerView.getImage());
             }
-
-            imageList.add(imageView);
-
             PointView pv = new PointView(getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DensityUtils
                     .dp2px(getContext(), 10), DensityUtils.dp2px(getContext(),
@@ -92,11 +88,10 @@ public class SimpleBanner extends FrameLayout {
             //除第一个以外，其他小白点都需要设置左边距
             if (i != 0) {
                 layoutParams.leftMargin = DensityUtils.dp2px(getContext(), 10 / 2);
-                pv.setEnabled(false);
             }
-
             pv.setLayoutParams(layoutParams);
             linearLayout.addView(pv);
+            bannerList.add(bannerView);
         }
 
 
@@ -104,22 +99,30 @@ public class SimpleBanner extends FrameLayout {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.e("sb", "onPageScrolled position :" + position % bannerList.size() + "left:" + linearLayout.getChildAt(position % bannerList.size()).getLeft());
 
             }
 
             @Override
             public void onPageSelected(int position) {
-                ((PointView) (linearLayout.getChildAt(lastPosition % imageList.size()))).setDefaultColor();
-                ((PointView) (linearLayout.getChildAt(position % imageList.size()))).setChangeColor();
+                ((PointView) (linearLayout.getChildAt(lastPosition % bannerList.size()))).setDefaultColor();
+                ((PointView) (linearLayout.getChildAt(position % bannerList.size()))).setChangeColor();
                 lastPosition = position;
+                for (int i = 0; i < imageUrlList.size(); i++) {
+                    Log.e("sb", "onPageSelected left:" + linearLayout.getChildAt(i).getLeft());
+                }
+                Log.e("sb", "onPageSelected position :" + position % bannerList.size() + "left:" + linearLayout.getChildAt(position % bannerList.size()).getLeft());
+
             }
+
 
             @Override
             public void onPageScrollStateChanged(int state) {
+                Log.e("sb", "onPageScrollStateChanged position :left:" + linearLayout.getChildAt(0).getLeft());
 
             }
         });
-        viewPager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % imageList.size());
+        viewPager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % bannerList.size());
 
     }
 
@@ -132,7 +135,7 @@ public class SimpleBanner extends FrameLayout {
         if (imageUrlList != null) {
             int imageSize = imageUrlList.size();
             for (int i = 0; i < imageSize; i++) {
-                imageLoader.loadImage(imageUrlList.get(i), imageList.get(i));
+                imageLoader.loadImage(imageUrlList.get(i), bannerList.get(i).getImage());
             }
         }
     }
@@ -141,5 +144,17 @@ public class SimpleBanner extends FrameLayout {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         Log.e("SB", "bannerPagerAdapter:" + (bannerPagerAdapter == null));
         bannerPagerAdapter.setOnItemClickListener(onItemClickListener);
+    }
+
+    public void show() {
+
+        Log.e("sb", "show position :left:" + linearLayout.getChildAt(0).getLeft());
+
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.e("sb", "onLayout position :left:" + linearLayout.getChildAt(0).getLeft());
     }
 }

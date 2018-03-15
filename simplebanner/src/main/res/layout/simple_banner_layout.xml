@@ -13,18 +13,6 @@
 
     </android.support.v4.view.ViewPager>
 
-    <TextView
-        android:id="@+id/sb_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
-        android:maxLines="2"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
     <LinearLayout
         android:id="@+id/sb_point_layout"
         android:layout_width="match_parent"
@@ -33,10 +21,7 @@
         android:layout_marginBottom="4dp"
         android:clickable="false"
         android:gravity="center"
-        android:orientation="horizontal"
-
-
-        >
+        android:orientation="horizontal">
 
     </LinearLayout>
 
