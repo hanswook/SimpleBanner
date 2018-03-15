@@ -10,15 +10,15 @@ SimpleBanner.setImageLoader();
 simpleBanner.initBanner(imageUrls,titleList);
 
 
-
->private void testBanner() {
->        simpleBanner= findViewById(R.id.simple);
->       List<String> imageUrls = new ArrayList<>();
->       List<String> titleList = new ArrayList<>();
->       for (int i = 0; i < 10; i++) {
->           imageUrls.add("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
->           titleList.add("一份为高中生准备的机器学习与人工智能入门指南");
->       }
+>
+>   private void testBanner() {
+>          simpleBanner= findViewById(R.id.simple);
+>          List<String> imageUrls = new ArrayList<>();
+>          List<String> titleList = new ArrayList<>();
+>          for (int i = 0; i < 10; i++) {
+>              imageUrls.add("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
+>              titleList.add("一份为高中生准备的机器学习与人工智能入门指南");
+>          }
 >
 >       simpleBanner.setOnItemClickListener(new OnItemClickListener() {
 >           @Override
