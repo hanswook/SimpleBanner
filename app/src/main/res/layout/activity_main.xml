@@ -11,9 +11,11 @@
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
-    <com.widget.simplebanner.SimpleBanner
+    <com.han.widget.simplebanner.SimpleBanner
         android:id="@+id/simple"
         android:layout_width="match_parent"
-        android:layout_height="200dp"></com.widget.simplebanner.SimpleBanner>
+        android:layout_height="300dp">
+
+    </com.han.widget.simplebanner.SimpleBanner>
 
 </LinearLayout>

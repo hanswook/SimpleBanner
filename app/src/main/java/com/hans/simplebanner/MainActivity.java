@@ -6,9 +6,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hans.simplebanner.image.GlideApp;
-import com.widget.simplebanner.ImageLoader;
-import com.widget.simplebanner.OnItemClickListener;
-import com.widget.simplebanner.SimpleBanner;
+import com.han.widget.simplebanner.ImageLoader;
+import com.han.widget.simplebanner.OnItemClickListener;
+import com.han.widget.simplebanner.SimpleBanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +31,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "position:" + position, Toast.LENGTH_LONG).show();
             }
         });
+
         simpleBanner.initBanner(imageUrls);
+
         simpleBanner.setImageLoader(new ImageLoader() {
             @Override
             public void loadImage(String url, ImageView imageView) {
                 GlideApp.with(MainActivity.this).load(url).into(imageView);
             }
         });
-
 
 
     }

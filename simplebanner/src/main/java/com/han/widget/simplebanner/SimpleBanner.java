@@ -1,4 +1,4 @@
-package com.widget.simplebanner;
+package com.han.widget.simplebanner;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.han.widget.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.widget.simplebanner;
+package com.han.widget.simplebanner;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

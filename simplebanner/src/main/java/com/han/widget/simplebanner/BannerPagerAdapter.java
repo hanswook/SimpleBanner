@@ -1,4 +1,4 @@
-package com.widget.simplebanner;
+package com.han.widget.simplebanner;
 
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
