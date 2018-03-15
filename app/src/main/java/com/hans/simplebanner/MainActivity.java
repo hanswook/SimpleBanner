@@ -2,6 +2,7 @@ package com.hans.simplebanner;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private String url;
-
+    SimpleBanner simpleBanner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         url = "https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg";
         testBanner();
 //        testBannerView();
+
+
     }
 
     private void testBannerView() {
@@ -34,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testBanner() {
-        SimpleBanner simpleBanner = findViewById(R.id.simple);
+        simpleBanner= findViewById(R.id.simple);
         List<String> imageUrls = new ArrayList<>();
+        List<String> titleList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             imageUrls.add("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
+            titleList.add("一份为高中生准备的机器学习与人工智能入门指南");
         }
 
         simpleBanner.setOnItemClickListener(new OnItemClickListener() {
@@ -54,9 +59,15 @@ public class MainActivity extends AppCompatActivity {
                 GlideApp.with(MainActivity.this).load(url).into(imageView);
             }
         });
-        simpleBanner.initBanner(imageUrls,imageUrls);
+        simpleBanner.initBanner(imageUrls,titleList);
 
-        simpleBanner.show();
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
 }

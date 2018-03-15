@@ -22,7 +22,6 @@
         android:clickable="false"
         android:gravity="center"
         android:orientation="horizontal">
-
     </LinearLayout>
 
 </RelativeLayout>
