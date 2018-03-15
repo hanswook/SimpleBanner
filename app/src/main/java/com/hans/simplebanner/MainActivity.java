@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             imageUrls.add("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
             titleList.add("一份为高中生准备的机器学习与人工智能入门指南");
         }
-
         simpleBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
