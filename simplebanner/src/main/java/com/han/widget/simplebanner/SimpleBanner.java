@@ -63,7 +63,6 @@ public class SimpleBanner extends FrameLayout {
     }
 
     private void initView() {
-//        Log.e("SB", "initView");
         if (getChildCount() <= 0) {
             View.inflate(getContext(), R.layout.simple_banner_layout, this);
             viewPager = findViewById(R.id.sb_viewpager);
@@ -100,7 +99,6 @@ public class SimpleBanner extends FrameLayout {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                Log.e("sb", "onPageScrolled position :" + position % bannerList.size() + "left:" + linearLayout.getChildAt(position % bannerList.size()).getLeft());
 
             }
 
@@ -110,10 +108,7 @@ public class SimpleBanner extends FrameLayout {
                 ((PointView) (linearLayout.getChildAt(position % bannerList.size()))).setChangeColor();
                 lastPosition = position;
                 for (int i = 0; i < imageUrlList.size(); i++) {
-//                    Log.e("sb", "onPageSelected left:" + linearLayout.getChildAt(i).getLeft());
                 }
-//                Log.e("sb", "onPageSelected position :" + position % bannerList.size() + "left:" + linearLayout.getChildAt(position % bannerList.size()).getLeft());
-
             }
 
 

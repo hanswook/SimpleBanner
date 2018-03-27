@@ -43,7 +43,6 @@ public class BannerPagerAdapter extends PagerAdapter {
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.e(" adapter", "listener:" + (listener == null));
                 //回调
                 if (listener != null) {
                     listener.onItemClick(nowPosition);
@@ -61,9 +60,6 @@ public class BannerPagerAdapter extends PagerAdapter {
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-//        Log.e(" adapter", "listener:" + (listener == null));
-//        Log.e(" adapter", "onItemClickListener:" + (onItemClickListener == null));
         this.listener = onItemClickListener;
-//        Log.e(" adapter", "listener:" + (listener == null));
     }
 }
